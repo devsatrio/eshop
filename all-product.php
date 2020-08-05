@@ -15,12 +15,20 @@
                         <div class="col-12 text-center">
                             <h2>All Product</h2>
                         </div>
-                        <?php $produk = mysqli_query($koneksi,"select * from produk order by id desc limit 0,8");
-                                        while($dpro=mysqli_fetch_assoc($produk)) { ?>
+                        <?php 
+                        $halaman = 12;
+                        $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
+                        $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
+                        $produk = mysqli_query($koneksi,"select * from produk order by id desc limit 0,8");
+                        $total = mysqli_num_rows($produk);
+                        $pages = ceil($total/$halaman);            
+                        $proquery = mysqli_query($koneksi,"select * from produk order by id desc LIMIT $mulai, $halaman");
+                        $no =$mulai+1;
+                        while($dpro=mysqli_fetch_assoc($proquery)) { ?>
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="single-product">
                                 <div class="product-img">
-                                    <a href="#">
+                                    <a href="produk.php?id=<?php echo $dpro['id']?>">
                                         <img class="default-img" src="assets/gambar/produk/<?php echo $dpro['gambar']?>"
                                             alt="#">
                                         <span class="price-dec"><?php echo $dpro['stok']?> Pcs</span>
@@ -31,7 +39,8 @@
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h3><a href="#"><?php echo $dpro['nama']?></a></h3>
+                                    <h3><a href="produk.php?id=<?php echo $dpro['id']?>"><?php echo $dpro['nama']?></a>
+                                    </h3>
                                     <div class="product-price">
                                         <span><?php echo "Rp. ".number_format($dpro['harga'],0,',','.'); ?></span>
                                     </div>
@@ -39,6 +48,14 @@
                             </div>
                         </div>
                         <?php } ?>
+                    </div>
+                    <div class="col-12 text-center mt-5">
+                        <?php for ($i=1; $i<=$pages ; $i++){ ?>
+                        <a href="?halaman=<?php echo $i; ?>">
+                            <button type="button" class="btn"><?php echo $i; ?></button>
+                        </a>
+                        <?php } ?>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
@@ -48,7 +65,7 @@
                             <ul class="categor-list">
                                 <?php $datakategori = mysqli_query($koneksi,"select * from kategori order by id desc");
                                 while($dkat=mysqli_fetch_assoc($datakategori)) { ?>
-                                <li><a href="#"><?php echo $dkat['nama']?></a></li>
+                                <li><a href="kategori.php?kategori=<?=$dkat['slug']?>"><?php echo $dkat['nama']?></a></li>
                                 <?php } ?>
                             </ul>
                         </div>

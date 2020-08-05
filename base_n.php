@@ -128,7 +128,7 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                             <ul class="main-category">
                                 <?php $datakategori = mysqli_query($koneksi,"select * from kategori order by id desc");
                                 while($dkat=mysqli_fetch_assoc($datakategori)) { ?>
-                                <li><a href="#"><?php echo $dkat['nama']?></a></li>
+                                <li><a href="kategori.php?kategori=<?=$dkat['slug']?>"><?php echo $dkat['nama']?></a></li>
                                 <?php } ?>
                             </ul>
                         </div>

@@ -101,7 +101,7 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="#">
+                                                    <a href="produk.php?id=<?php echo $dpro['id']?>">
                                                         <img class="default-img"
                                                             src="assets/gambar/produk/<?php echo $dpro['gambar']?>"
                                                             alt="#">
@@ -113,7 +113,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="#"><?php echo $dpro['nama']?></a></h3>
+                                                    <h3><a href="produk.php?id=<?php echo $dpro['id']?>"><?php echo $dpro['nama']?></a></h3>
                                                     <div class="product-price">
                                                         <span><?php echo "Rp. ".number_format($dpro['harga'],0,',','.'); ?></span>
                                                     </div>
@@ -169,13 +169,13 @@
                         while($dkat=mysqli_fetch_assoc($kategori)) { ?>
                         <div class="single-product">
                             <div class="product-img">
-                                <a href="#">
+                                <a href="kategori.php?kategori=<?=$dkat['slug']?>">
                                     <img class="default-img" src="assets/gambar/kategori/<?php echo $dkat['gambar'];?>"
                                         alt="#">
                                 </a>
                             </div>
                             <div class="product-content text-center">
-                                <h3><a href=""><?php echo $dkat['nama']?></a></h3>
+                                <h3><a href="kategori.php?kategori=<?=$dkat['slug']?>"><?php echo $dkat['nama']?></a></h3>
 
                             </div>
                         </div>
