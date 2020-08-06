@@ -1,3 +1,9 @@
+<?php
+error_reporting(0);
+session_start();
+include '../php/koneksi.php';
+
+?>
 <div class="preloader">
     <div class="preloader-inner">
         <div class="preloader-icon">
@@ -27,8 +33,13 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                     <div class="right-content">
                         <ul class="list-main">
                             <li><i class="ti-location-pin"></i> <?php echo $st['alamat']?></li>
-                            <li><i class="ti-user"></i> <a href="register.php">Register</a></li>
-                            <li><i class="ti-power-off"></i><a href="login.php">Login</a></li>
+                            <?php 
+                                if($_SESSION['username']==''){ ?>
+                            <li><a href="register.php"><i class="ti-user"></i> Register</a></li>
+                            <li><a href="login.php"><i class="fa fa-sign-in"></i>Login</a></li>
+                            <?php }else{ ?>
+                            <li><a href="php/aksi_logout_frontend.php"><i class="ti-power-off"></i>Logout</a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -68,17 +79,16 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                 </div>
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
-                        <!-- Search Form -->
+                        <?php 
+                            if($_SESSION['username']!=''){ ?>
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            <a href="#" class="single-icon">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?= $_SESSION['username']; ?>
+                            </a>
                         </div>
                         <div class="sinlge-bar shopping">
                             <a href="#" class="single-icon"><i class="ti-bag"></i> <span
                                     class="total-count">2</span></a>
-                            <!-- Shopping Item -->
                             <div class="shopping-item">
                                 <div class="dropdown-cart-header">
                                     <span>2 Items</span>
@@ -110,7 +120,10 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                                     <a href="checkout.html" class="btn animate">Checkout</a>
                                 </div>
                             </div>
+                            <!--/ End Shopping Item -->
                         </div>
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>

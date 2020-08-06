@@ -6,7 +6,7 @@ if($_SESSION['username']==''){
     echo "<script>window.alert('Maaf, Anda Harus Login'); window.location=('../loginadm.php')</script>";
 }else{
     if($_SESSION['akses']!='admin'){
-        echo "<script>window.alert('Maaf, Anda tidak memiliki akses'); window.location=('../view/index.php')</script>";
+        echo "<script>window.alert('Maaf, Anda tidak memiliki akses'); window.location=('../index.php')</script>";
     }
 }
 include 'layout/h.php';
