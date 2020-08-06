@@ -27,8 +27,8 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                     <div class="right-content">
                         <ul class="list-main">
                             <li><i class="ti-location-pin"></i> <?php echo $st['alamat']?></li>
-                            <li><i class="ti-user"></i> <a href="#">Register</a></li>
-                            <li><i class="ti-power-off"></i><a href="#">Login</a></li>
+                            <li><i class="ti-user"></i> <a href="register.php">Register</a></li>
+                            <li><i class="ti-power-off"></i><a href="login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>
