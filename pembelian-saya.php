@@ -13,16 +13,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h4>Keranjang Saya</h4>
+                    <h4>My Purchase</h4>
                 </div>
             </div>
         </div>
     </div>
     <?php
-    $cekkeranjang = mysqli_query($koneksi,"select * from keranjang where keranjang.id_pengguna='$_SESSION[id]'");
-    $jumlahker = mysqli_num_rows($cekkeranjang);
-    if($jumlahker > 0){
-    ?>
+    $cektransaksi = mysqli_query($koneksi,"select * from transaksi where keranjang.id_pengguna='$_SESSION[id]'");
+    $jumlahtran = mysqli_num_rows($cektransaksi);
+    if($jumlahtran > 0){ ?>
     <div class="shopping-cart section">
         <div class="container">
             <div class="row">
@@ -74,11 +73,9 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <!-- Total Amount -->
                     <div class="total-amount">
                         <div class="row">
                             <div class="col-lg-8 col-12 mb-5">
-
                                 <h4 class="title">Noted:</h4>
                                 Biaya pengiriman akan di tambahkan manual oleh admin setelah pengajuan transaksi anda di
                                 setujui.
@@ -115,8 +112,7 @@
                     <div class="jumbotron">
                         <h1 class="display-4">Oops !</h1>
                         <br>
-                        <p class="lead">Keranjang anda masih kosong, masukan barang ke keranjang untuk melakukan
-                            transaksi</p>
+                        <p class="lead">Transaksi anda kosong</p>
                         <hr class="my-4">
                         <p class="lead">
                             <a href="index.php"> <button class="btn" type="button">Back To Home</button></a>

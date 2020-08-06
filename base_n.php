@@ -129,6 +129,7 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                                         <ul class="nav main-menu menu navbar-nav">
                                             <li class="active"><a href="index.php">Home</a></li>
                                             <li><a href="all-product.php">All Product</a></li>
+                                            <li><a href="pembelian-saya.php">My Purchase</a></li>
                                             <li><a href="contact-us.php">Contact Us</a></li>
                                         </ul>
                                     </div>
