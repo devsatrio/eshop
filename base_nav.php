@@ -59,13 +59,9 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="search-bar-top">
                         <div class="search-bar">
-                            <!-- <select disabled>
-                                <option value="All Product">All Product</option>
-                                
-                            </select> -->
-                            <form>
-                                <input name="search" class="form-controls" placeholder="Search Products Here.....">
-                                <button class="btnn"><i class="ti-search"></i></button>
+                            <form action="pencarian.php" method="get">
+                                <input required name="search" placeholder="Search Products Here....." type="search">
+                                <button type="submit" class="btnn"><i class="ti-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -114,14 +110,12 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                                     <a href="checkout.html" class="btn animate">Checkout</a>
                                 </div>
                             </div>
-                            <!--/ End Shopping Item -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Header Inner -->
     <div class="header-inner">
         <div class="container">
             <div class="cat-nav-head">

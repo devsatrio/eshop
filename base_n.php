@@ -59,9 +59,9 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="search-bar-top">
                         <div class="search-bar">
-                            <form>
-                                <input name="search" placeholder="Search Products Here....." type="search">
-                                <button class="btnn"><i class="ti-search"></i></button>
+                            <form action="pencarian.php" method="get">
+                                <input required name="search" placeholder="Search Products Here....." type="search">
+                                <button type="submit" class="btnn"><i class="ti-search"></i></button>
                             </form>
                         </div>
                     </div>

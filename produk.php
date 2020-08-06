@@ -43,8 +43,8 @@
                                     <i class="ti-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000"
-                                value="1">
+                            <input type="text" name="quant[1]" class="input-number" data-min="1"
+                                data-max="<?php echo $dpro['stok']?>" value="1">
                             <div class="button plus">
                                 <button type="button" class="btn btn-primary btn-number" data-type="plus"
                                     data-field="quant[1]">
@@ -55,9 +55,8 @@
                         <!--/ End Input Order -->
                     </div>
                     <div class="add-to-cart">
-                        <a href="#" class="btn">Add to cart</a>
-                        <a href="#" class="btn min"><i class="ti-heart"></i></a>
-                        <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
+                        <a href="#" class="btn" onclick="return alert('Maaf, Anda harus login')">Add to cart</a>
+                       
                     </div>
                 </div>
             </div>

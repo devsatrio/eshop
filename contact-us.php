@@ -5,7 +5,9 @@
 
 <body class="js">
     <?php include 'base_nav.php';?>
-
+    <?php
+$datasetting = mysqli_query($koneksi,"select * from setting order by id desc limit 0,1");
+while($st=mysqli_fetch_assoc($datasetting)) { ?>
     <section id="contact-us" class="contact-us section">
         <div class="container">
             <div class="contact-head">
@@ -17,25 +19,31 @@
                         <div class="single-head">
                             <div class="single-info">
                                 <i class="fa fa-phone"></i>
-                                <h4 class="title">Call us Now:</h4>
+                                <h4 class="title">Hubungi Kami:</h4>
                                 <ul>
-                                    <li>+123 456-789-1120</li>
-                                    <li>+522 672-452-1120</li>
+                                    <li><?=$st['telp_satu']?></li>
+                                    <li><?=$st['telp_dua']?></li>
                                 </ul>
                             </div>
                             <div class="single-info">
                                 <i class="fa fa-envelope-open"></i>
                                 <h4 class="title">Email:</h4>
                                 <ul>
-                                    <li><a href="mailto:info@yourwebsite.com">info@yourwebsite.com</a></li>
-                                    <li><a href="mailto:info@yourwebsite.com">support@yourwebsite.com</a></li>
+                                    <li><a href="mailto:<?=$st['email']?>"><?=$st['email']?></a></li>
                                 </ul>
                             </div>
                             <div class="single-info">
                                 <i class="fa fa-location-arrow"></i>
-                                <h4 class="title">Our Address:</h4>
+                                <h4 class="title">Alamat:</h4>
                                 <ul>
-                                    <li>KA-62/1, Travel Agency, 45 Grand Central Terminal, New York.</li>
+                                    <li><?=$st['alamat']?></li>
+                                </ul>
+                            </div>
+                            <div class="single-info">
+                                <i class="fa fa-heart"></i>
+                                <h4 class="title">Kenapa Kami:</h4>
+                                <ul>
+                                    <li><?=$st['deskripsi']?></li>
                                 </ul>
                             </div>
                         </div>
@@ -44,6 +52,7 @@
             </div>
         </div>
     </section>
+    <?php } ?>
     <div class="mb-5 mr-5 ml-5 text-center">
         <h3>Lokasi Kami</h3><br>
         <iframe

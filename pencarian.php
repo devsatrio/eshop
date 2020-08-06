@@ -2,27 +2,29 @@
 <html lang="zxx">
 <?php include 'php/koneksi.php';?>
 <?php include 'base_h.php';?>
+
 <body class="js">
     <?php include 'base_nav.php';?>
     <section class="product-area shop-sidebar shop section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-md-8 col-12">
+                <div class="col-lg-12 col-md-12 col-12">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <h2>All Product</h2>
+                            <h2>Hasil Pencarian "<?=$_GET['search']?>"</h2>
                         </div>
                         <?php 
                         $halaman = 12;
                         $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
                         $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-                        $produk = mysqli_query($koneksi,"select * from produk order by id desc limit 0,8");
+                        $produk = mysqli_query($koneksi,"select * from produk where nama LIKE '%$_GET[search]%' order by id desc limit 0,8");
                         $total = mysqli_num_rows($produk);
                         $pages = ceil($total/$halaman);            
-                        $proquery = mysqli_query($koneksi,"select * from produk order by id desc LIMIT $mulai, $halaman");
+                        $proquery = mysqli_query($koneksi,"select * from produk where nama LIKE '%$_GET[search]%' order by id desc LIMIT $mulai, $halaman");
                         $no =$mulai+1;
+                        if($total > 0){
                         while($dpro=mysqli_fetch_assoc($proquery)) { ?>
-                        <div class="col-lg-4 col-md-6 col-12">
+                        <div class="col-lg-3 col-md-6 col-12">
                             <div class="single-product">
                                 <div class="product-img">
                                     <a href="produk.php?id=<?php echo $dpro['id']?>">
@@ -54,20 +56,24 @@
                         <?php } ?>
 
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="shop-sidebar">
-                        <div class="single-widget category mt-5">
-                            <h3 class="title">Kategori</h3>
-                            <ul class="categor-list">
-                                <?php $datakategori = mysqli_query($koneksi,"select * from kategori order by id desc");
-                                while($dkat=mysqli_fetch_assoc($datakategori)) { ?>
-                                <li><a href="kategori.php?kategori=<?=$dkat['slug']?>"><?php echo $dkat['nama']?></a>
-                                </li>
-                                <?php } ?>
-                            </ul>
+                    <?php }else{ ?>
+                    <div class="col-12 mt-5">
+                        <div class="jumbotron">
+                            <h1 class="display-4">Oops!</h1>
+                            <br>
+                            <p class="lead">Kami tidak menemukan produk dengan nama "<b><?= $_GET['search']?></b>", coba
+                                cari dengan keyword lainnya.</p>
+                            <br>
+                            <p class="lead">
+                                <a href="index.php">
+                                    <button class="btn btn-primary btn-lg" type="button">Back to homes</button>
+                                </a>
+                            </p>
+
                         </div>
+
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
