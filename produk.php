@@ -15,11 +15,9 @@
         <br>
         <div class="row no-gutters">
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <!-- Product Slider -->
                 <div class="product-gallery">
                     <img src="assets/gambar/produk/<?=$dpro['gambar']?>" width="100%" alt="#" class="img-thumbnail">
                 </div>
-                <!-- End Product slider -->
             </div>
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <div class="quickview-content">
@@ -34,30 +32,38 @@
                         <p><?=$dpro['deskripsi']?></p>
                     </div>
                     <br>
-                    <div class="quantity">
-                        <!-- Input Order -->
-                        <div class="input-group">
-                            <div class="button minus">
-                                <button type="button" class="btn btn-primary btn-number" disabled="disabled"
-                                    data-type="minus" data-field="quant[1]">
-                                    <i class="ti-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" name="quant[1]" class="input-number" data-min="1"
-                                data-max="<?php echo $dpro['stok']?>" value="1">
-                            <div class="button plus">
-                                <button type="button" class="btn btn-primary btn-number" data-type="plus"
-                                    data-field="quant[1]">
-                                    <i class="ti-plus"></i>
-                                </button>
+
+                    <form action="php/aksi_tambah_keranjang.php" method="post">
+                        <div class="quantity">
+                            <div class="input-group">
+                                <div class="button minus">
+                                    <button type="button" class="btn btn-primary btn-number" disabled="disabled"
+                                        data-type="minus" data-field="jumlah">
+                                        <i class="ti-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" name="jumlah" class="input-number" data-min="1"
+                                    data-max="<?php echo $dpro['stok']?>" value="1">
+                                <div class="button plus">
+                                    <button type="button" class="btn btn-primary btn-number" data-type="plus"
+                                        data-field="jumlah">
+                                        <i class="ti-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <!--/ End Input Order -->
-                    </div>
-                    <div class="add-to-cart">
-                        <a href="#" class="btn" onclick="return alert('Maaf, Anda harus login')">Add to cart</a>
-                       
-                    </div>
+                        <?php 
+                        if($_SESSION['username']==''){ ?>
+                        <div class="add-to-cart">
+                            <a href="#" class="btn" onclick="return alert('Maaf, Anda harus login')">Add to cart</a>
+                        </div>
+                        <?php }else{ ?>
+                        <div class="add-to-cart">
+                            <input type="hidden" value="<?=$dpro['id']?>" name="kodeproduk">
+                            <button type="submit" class="btn">Add to cart</button>
+                        </div>
+                        <?php } ?>
+                    </form>
                 </div>
             </div>
         </div>

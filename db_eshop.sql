@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2020 at 12:27 PM
+-- Generation Time: Aug 06, 2020 at 02:56 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.13
 
@@ -49,6 +49,28 @@ INSERT INTO `kategori` (`id`, `nama`, `slug`, `gambar`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `keranjang`
+--
+
+CREATE TABLE `keranjang` (
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) DEFAULT 0,
+  `id_produk` int(11) DEFAULT 0,
+  `harga` int(11) DEFAULT 0,
+  `jumlah` int(11) DEFAULT 0,
+  `subtotal` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `keranjang`
+--
+
+INSERT INTO `keranjang` (`id`, `id_pengguna`, `id_produk`, `harga`, `jumlah`, `subtotal`) VALUES
+(1, 3, 5, 25000, 1, 25000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pengguna`
 --
 
@@ -67,7 +89,8 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id`, `nama`, `alamat`, `notelp`, `username`, `password`, `status`) VALUES
-(1, 'damara satrio', 'magersari gurah', '0293849023', 'damara', '827ccb0eea8a706c4c34a16891f84e7b', 'Aktif');
+(1, 'damara satrio', 'magersari gurah', '0293849023', 'damara', '827ccb0eea8a706c4c34a16891f84e7b', 'Aktif'),
+(3, 'bela', 'gurah', '20394890', 'bela', '827ccb0eea8a706c4c34a16891f84e7b', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -150,6 +173,39 @@ INSERT INTO `slider` (`id`, `gambar`, `judul`, `deskripsi`, `link`, `status`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id` int(11) NOT NULL,
+  `kode` text DEFAULT NULL,
+  `id_pengguna` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `status` varchar(40) DEFAULT NULL,
+  `subtotal` int(11) DEFAULT 0,
+  `pengiriman` int(11) DEFAULT 0,
+  `total` int(11) DEFAULT 0,
+  `keterangan` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi_detail`
+--
+
+CREATE TABLE `transaksi_detail` (
+  `id` int(11) NOT NULL,
+  `id_transaksi` int(11) DEFAULT 0,
+  `id_produk` int(11) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT 0,
+  `harga` int(11) DEFAULT 0,
+  `subtotal` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -183,6 +239,14 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_keranjang_pengguna` (`id_pengguna`),
+  ADD KEY `FK_keranjang_produk` (`id_produk`);
+
+--
 -- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
@@ -208,6 +272,21 @@ ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_transaksi_pengguna` (`id_pengguna`);
+
+--
+-- Indexes for table `transaksi_detail`
+--
+ALTER TABLE `transaksi_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_transaksi_detail_produk` (`id_produk`),
+  ADD KEY `FK_transaksi_detail_transaksi` (`id_transaksi`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -224,10 +303,16 @@ ALTER TABLE `kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -248,6 +333,18 @@ ALTER TABLE `slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transaksi_detail`
+--
+ALTER TABLE `transaksi_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -258,10 +355,30 @@ ALTER TABLE `user`
 --
 
 --
+-- Constraints for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD CONSTRAINT `FK_keranjang_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_keranjang_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `produk`
 --
 ALTER TABLE `produk`
   ADD CONSTRAINT `FK_produk_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `FK_transaksi_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `transaksi_detail`
+--
+ALTER TABLE `transaksi_detail`
+  ADD CONSTRAINT `FK_transaksi_detail_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_transaksi_detail_transaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -59,12 +59,11 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                         <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
                         <!-- Search Form -->
                         <div class="search-top">
-                            <form class="search-form">
-                                <input type="text" placeholder="Search here..." name="search">
+                            <form class="search-form" action="pencarian.php" method="get">
+                                <input required name="search" type="text" placeholder="Search here..." name="search">
                                 <button value="search" type="submit"><i class="ti-search"></i></button>
                             </form>
                         </div>
-                        <!--/ End Search Form -->
                     </div>
                     <div class="mobile-nav"></div>
                 </div>
@@ -88,43 +87,18 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                             </a>
                         </div>
                         <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon"><i class="ti-bag"></i> <span
-                                    class="total-count">2</span></a>
-                            <div class="shopping-item">
-                                <div class="dropdown-cart-header">
-                                    <span>2 Items</span>
-                                    <a href="#">View Cart</a>
-                                </div>
-                                <ul class="shopping-list">
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i
-                                                class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
-                                                alt="#"></a>
-                                        <h4><a href="#">Woman Ring</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i
-                                                class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
-                                                alt="#"></a>
-                                        <h4><a href="#">Woman Necklace</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                    </li>
-                                </ul>
-                                <div class="bottom">
-                                    <div class="total">
-                                        <span>Total</span>
-                                        <span class="total-amount">$134.00</span>
-                                    </div>
-                                    <a href="checkout.html" class="btn animate">Checkout</a>
-                                </div>
-                            </div>
-                            <!--/ End Shopping Item -->
+                            <?php
+                            $keranjang = mysqli_query($koneksi,"select * from keranjang where id_pengguna='$_SESSION[id]'");
+                            $cek = mysqli_num_rows($keranjang);
+                            if($cek > 0){ ?>
+
+                            <a href="keranjang.php" class="single-icon"><i class="ti-bag"></i> <span
+                                    class="total-count"><?=$cek?></span></a>
+                            <?php }else{ ?>
+                            <a href="keranjang.php" class="single-icon"><i class="ti-bag"></i></a>
+                            <?php } ?>
                         </div>
                         <?php } ?>
-
                     </div>
                 </div>
             </div>
