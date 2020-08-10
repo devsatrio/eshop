@@ -13,93 +13,72 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h4>My Purchase</h4>
+                    <h4>Transaksi Anda</h4>
                 </div>
             </div>
         </div>
     </div>
     <?php
-    $cektransaksi = mysqli_query($koneksi,"select * from transaksi where keranjang.id_pengguna='$_SESSION[id]'");
+    $cektransaksi = mysqli_query($koneksi,"select * from transaksi where id_pengguna='$_SESSION[id]'");
     $jumlahtran = mysqli_num_rows($cektransaksi);
     if($jumlahtran > 0){ ?>
     <div class="shopping-cart section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <table class="table shopping-summery">
-                        <thead>
-                            <tr class="main-hading">
-                                <th>Produk</th>
-                                <th>Nama</th>
-                                <th class="text-center">Harga</th>
-                                <th class="text-center">Jumlah</th>
-                                <th class="text-center">Total</th>
-                                <th class="text-center">#</th>
+                    <table class="table" height="100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="text-center">Kode</th>
+                                <th scope="col" class="text-center">Tanggal</th>
+                                <th scope="col" class="text-center">Status</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $total = 0;
-                            $query = mysqli_query($koneksi,"select keranjang.*,produk.gambar,produk.nama from keranjang left join produk on produk.id = keranjang.id_produk where keranjang.id_pengguna='$_SESSION[id]' order by keranjang.id desc");
+                            $id = 1;
+                            $query = mysqli_query($koneksi,"select * from transaksi where id_pengguna='$_SESSION[id]' order by id desc");
                             while($row=mysqli_fetch_assoc($query)) { ?>
                             <tr>
-                                <td class="image" data-title="No">
-                                    <img src="assets/gambar/produk/<?=$row['gambar']?>" alt="#">
-                                </td>
-                                <td class="product-des" data-title="Description">
-                                    <p class="product-name"><a
-                                            href="produk.php?id=<?=$row['id_produk']?>"><?=$row['nama']?></a></p>
-
-                                </td>
-                                <td class="price" data-title="Price">
-                                    <span><?php echo "Rp. ".number_format($row['harga'],0,',','.'); ?></span></td>
-                                <td class="qty" data-title="Qty">
-                                    <?=$row['jumlah']?> Pcs
-                                </td>
-                                <td class="total-amount" data-title="Total">
-                                    <span><?php echo "Rp. ".number_format($row['subtotal'],0,',','.'); ?></span></td>
-                                <td class="action" data-title="Remove">
-                                    <a href="php/aksi_hapus_keranjang.php?id=<?=$row['id']?>"
-                                        onclick="return confirm('Hapus produk dari keranjang ?')"><i
-                                            class="ti-trash remove-icon"></i></a>
+                                <td class="text-center"><?php echo $row['kode']?></td>
+                                <td class="text-center"><?php echo $row['tanggal']?></td>
+                                <td class="text-center"><?php echo $row['status']?></td>
+                                <td class="text-center">
+                                    <?php if($row['status']=='Menunggu pembayaran'){?>
+                                    <a href="detail_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-eye"></i></a>
+                                    <a href="konfirmasi_pembayaran.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-money"></i></a>
+                                    <a href="php/cancel_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;" onclick="return confirm('Cancel transaksi ?')"><i
+                                            class="fa fa-close"></i></a>
+                                    <?php }elseif($row['status']=='Menunggu Konfirmasi Admin'){ ?>
+                                    <a href="detail_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-eye"></i></a>
+                                    <a href="php/cancel_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;" onclick="return confirm('Cancel transaksi ?')"><i
+                                            class="fa fa-close"></i></a>
+                                    <?php }elseif($row['status']=='Transaksi Dicancel'){ ?>
+                                    <a href="detail_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-eye"></i></a>
+                                    <?php }else if($row['status']=='Prosess Pengiriman'){ ?>
+                                    <a href="detail_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-eye"></i></a>
+                                    <a href="php/produk_diterima.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"
+                                        onclick="return confirm('Apakah produk telah diterima ?')"><i
+                                            class="fa fa-check"></i></a>
+                                    <?php }else{ ?>
+                                    <a href="detail_transaksi.php?id=<?=$row['id']?>" class="btn"
+                                        style="color:white;"><i class="fa fa-eye"></i></a>
+                                    <?php } ?>
                                 </td>
                             </tr>
-                            <?php 
-                            $total += $row['subtotal'];
-                            } ?>
+                            <?php } ?>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="total-amount">
-                        <div class="row">
-                            <div class="col-lg-8 col-12 mb-5">
-                                <h4 class="title">Noted:</h4>
-                                Biaya pengiriman akan di tambahkan manual oleh admin setelah pengajuan transaksi anda di
-                                setujui.
-                            </div>
-                            <div class="col-lg-4 col-12">
-                                <div class="right">
-                                    <ul>
-                                        <li>Subtotal<span><?php echo "Rp. ".number_format($total,0,',','.'); ?></span>
-                                        </li>
-                                        <li>Biaya Pengiriman<span>-</span></li>
-                                        <li class="last">
-                                            Total<span><?php echo "Rp. ".number_format($total,0,',','.'); ?></span></li>
-                                    </ul>
-                                    <div class="button5">
-                                        <form action="php/aksi_beli.php" method="post">
-                                            <input type="hidden" name="total" value="<?=$total?>">
-                                            <button type="submit" class="btn">Beli Sekarang</button>
-                                            <a href="index.php" class="btn">Back To Home</a>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <br><br>
                 </div>
             </div>
         </div>
@@ -137,7 +116,6 @@
                 <div class="col-12">
                     <div class="product-info">
                         <div class="tab-content" id="myTabContent">
-                            <!-- Start Single Tab -->
                             <div class="tab-pane fade show active" id="man" role="tabpanel">
                                 <div class="tab-single">
                                     <div class="row">
@@ -150,7 +128,6 @@
                                                         <img class="default-img"
                                                             src="assets/gambar/produk/<?php echo $dpro['gambar']?>"
                                                             alt="#">
-                                                        <span class="price-dec"><?php echo $dpro['stok']?> Pcs</span>
                                                     </a>
 
                                                     <div class="button-head text-center">

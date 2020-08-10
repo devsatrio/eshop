@@ -37,10 +37,6 @@ include 'layout/n.php';
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="email">Stok</label>
-                            <input type="number" min="0" class="form-control" name="stok" required>
-                        </div>
-                        <div class="form-group">
                             <label for="email">Harga</label>
                             <input type="number" min="0" class="form-control" name="harga" required>
                         </div>

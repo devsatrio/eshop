@@ -22,11 +22,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <div class="quickview-content">
                     <h2><?php echo $dpro['nama']?></h2>
-                    <div class="quickview-ratting-review">
-                        <div class="quickview-stock">
-                            <span><i class="fa fa-check-circle-o"></i> Tersedia <?php echo $dpro['stok']?> Pcs</span>
-                        </div>
-                    </div>
+                    
                     <h3><?php echo "Rp. ".number_format($dpro['harga'],0,',','.'); ?></h3>
                     <div class="quickview-peragraph">
                         <p><?=$dpro['deskripsi']?></p>
@@ -42,8 +38,7 @@
                                         <i class="ti-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" name="jumlah" class="input-number" data-min="1"
-                                    data-max="<?php echo $dpro['stok']?>" value="1">
+                                <input type="text" name="jumlah" class="input-number" data-max="20" data-min="1" value="1">
                                 <div class="button plus">
                                     <button type="button" class="btn btn-primary btn-number" data-type="plus"
                                         data-field="jumlah">
@@ -97,7 +92,6 @@
                                                         <img class="default-img"
                                                             src="assets/gambar/produk/<?php echo $dpro['gambar']?>"
                                                             alt="#">
-                                                        <span class="price-dec"><?php echo $dpro['stok']?> Pcs</span>
                                                     </a>
 
                                                     <div class="button-head text-center">

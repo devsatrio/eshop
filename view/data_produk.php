@@ -27,7 +27,6 @@ include 'layout/n.php';
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Kategori</th>
-                                <th>Stok</th>
                                 <th>Harga</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -46,9 +45,6 @@ include 'layout/n.php';
                                 </td>
                                 <td>
                                     <?php echo $row['namakategori'];?>
-                                </td>
-                                <td>
-                                    <?php echo $row['stok'];?> Pcs
                                 </td>
                                 <td>
                                     <?php echo "Rp. ".number_format($row['harga'],0,',','.'); ?>

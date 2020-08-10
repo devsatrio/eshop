@@ -43,11 +43,6 @@ include 'layout/n.php';
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="email">Stok</label>
-                            <input type="number" min="0" class="form-control" value="<?php echo $row['stok']?>"
-                                name="stok" required>
-                        </div>
-                        <div class="form-group">
                             <label for="email">Harga</label>
                             <input type="number" min="0" class="form-control" value="<?php echo $row['harga']?>"
                                 name="harga" required>

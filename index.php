@@ -105,7 +105,6 @@
                                                         <img class="default-img"
                                                             src="assets/gambar/produk/<?php echo $dpro['gambar']?>"
                                                             alt="#">
-                                                        <span class="price-dec"><?php echo $dpro['stok']?> Pcs</span>
                                                     </a>
 
                                                     <div class="button-head text-center">

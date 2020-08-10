@@ -39,12 +39,12 @@
             </li>
             <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
-                <a class="nav-link" href="data_pengguna.php">
+                <a class="nav-link" href="data_pembelian.php">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Pembelian</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="data_pengguna.php">
+                <a class="nav-link" href="laporan_pembelian.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Laporan Pembelian</span></a>
             </li>
