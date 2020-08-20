@@ -82,7 +82,7 @@ while($st=mysqli_fetch_assoc($datasetting)) { ?>
                         <?php 
                             if($_SESSION['username']!=''){ ?>
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon">
+                            <a href="editprofile.php" class="single-icon">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?= $_SESSION['username']; ?>
                             </a>
                         </div>
